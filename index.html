@@ -1,0 +1,1022 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hoffer's Haircuts | ThunderDome</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto+Condensed:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black: #11120f;
+  --dark: #1b1c18;
+  --steel: #34352e;
+  --cream: #e9e3d1;
+  --red: #a4252d;
+  --muted: #aaa595;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--cream);
+  font-family: "Roboto Condensed", sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, button, .brand {
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+}
+
+button, a { -webkit-tap-highlight-color: transparent; }
+
+a { color: inherit; text-decoration: none; }
+
+button { cursor: pointer; }
+
+.container {
+  width: min(1150px, 90%);
+  margin: auto;
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: .07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #11120ff5;
+  border-bottom: 1px solid #45453c;
+}
+
+nav {
+  min-height: 76px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.brand {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.brand small {
+  display: block;
+  font-size: .65rem;
+  letter-spacing: .16em;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  font-family: Oswald, sans-serif;
+  font-size: .9rem;
+  text-transform: uppercase;
+}
+
+.nav-links a:hover { color: #d65c61; }
+
+.menu-button {
+  display: none;
+  color: var(--cream);
+  background: none;
+  border: 1px solid #55564b;
+  padding: 10px 14px;
+}
+
+.button {
+  display: inline-block;
+  padding: 13px 22px;
+  border: 1px solid #cf535a;
+  background: var(--red);
+  color: white;
+  font-family: Oswald, sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  transition: .2s;
+}
+
+.button:hover {
+  background: #c23841;
+  transform: translateY(-2px);
+}
+
+.button.secondary {
+  background: transparent;
+  border-color: #777568;
+}
+
+.hero {
+  min-height: 720px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(90deg, #10110ff2 0%, #10110fc9 48%, #10110f20 100%),
+    linear-gradient(0deg, #11120f 0%, transparent 40%),
+    url("poster.jpg") center 35% / cover no-repeat;
+  filter: saturate(.65);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg, transparent 0 3px, #ffffff04 4px 5px
+  );
+}
+
+.hero-content {
+  padding: 90px 0;
+  max-width: 730px;
+}
+
+.kicker {
+  display: inline-block;
+  background: var(--red);
+  padding: 8px 13px;
+  font-family: Oswald, sans-serif;
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-size: clamp(4rem, 11vw, 9rem);
+  line-height: .83;
+  margin: 0 0 30px;
+  letter-spacing: -.03em;
+  text-shadow: 0 5px 25px #000;
+}
+
+h1 span { display: block; }
+
+.hero-sub {
+  font: 600 clamp(1.3rem, 3vw, 2rem)/1.2 Oswald;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.hero p {
+  max-width: 490px;
+  color: #c6c0b2;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.hero-stamp {
+  position: absolute;
+  right: 6%;
+  bottom: 12%;
+  width: 145px;
+  height: 145px;
+  border: 2px dashed var(--cream);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font: 700 1.3rem/.95 Oswald;
+  text-transform: uppercase;
+  transform: rotate(9deg);
+  background: #11120fcc;
+}
+
+.hero-stamp small {
+  display: block;
+  font-size: .6rem;
+  margin-top: 9px;
+  letter-spacing: .1em;
+  color: var(--muted);
+}
+
+.marquee {
+  overflow: hidden;
+  background: var(--red);
+  padding: 12px 0;
+  white-space: nowrap;
+}
+
+.marquee div {
+  display: inline-block;
+  font: 700 1rem Oswald;
+  letter-spacing: .1em;
+  animation: scroll 28s linear infinite;
+}
+
+.marquee span { padding: 0 25px; }
+
+@keyframes scroll {
+  to { transform: translateX(-50%); }
+}
+
+section { padding: 95px 0; }
+
+.section-title {
+  font: 700 clamp(3rem, 7vw, 5.5rem)/.95 Oswald;
+  text-transform: uppercase;
+  margin: 10px 0 20px;
+}
+
+.section-title span { color: #c74b52; }
+
+.eyebrow {
+  color: #d65b62;
+  font: 600 .8rem Oswald;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.section-intro {
+  max-width: 600px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+#cuts { background: #191a16; }
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 40px;
+}
+
+.service {
+  background: linear-gradient(145deg, #33342d, #20211c);
+  border: 1px solid #55564a;
+  padding: 27px;
+  position: relative;
+  transition: .2s;
+}
+
+.service:hover {
+  transform: translateY(-5px);
+  border-color: #b9444b;
+}
+
+.service::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45px;
+  height: 4px;
+  background: var(--red);
+}
+
+.service-number {
+  color: #a8a394;
+  font: 600 .75rem Oswald;
+  letter-spacing: .1em;
+}
+
+.service h3 {
+  font-size: 1.8rem;
+  margin: 30px 0 12px;
+}
+
+.service p {
+  color: #bdb7a9;
+  min-height: 65px;
+  line-height: 1.6;
+}
+
+.service-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #55564a;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.price {
+  font: 700 1.7rem Oswald;
+}
+
+.add {
+  width: 40px;
+  height: 40px;
+  background: var(--red);
+  border: 0;
+  color: white;
+  font-size: 1.6rem;
+}
+
+.shop {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 55px;
+}
+
+.poster {
+  border: 1px solid #55564a;
+  padding: 10px;
+  background: #252620;
+  box-shadow: 10px 10px 0 #080908;
+}
+
+.poster img {
+  width: 100%;
+  display: block;
+}
+
+.shop-copy p {
+  color: #bdb7a9;
+  line-height: 1.8;
+}
+
+.shop-copy h2 {
+  font: 700 clamp(3rem, 6vw, 5rem)/.9 Oswald;
+  text-transform: uppercase;
+  margin: 15px 0 25px;
+}
+
+.shop-copy h2 span { color: #c74b52; }
+
+.shop-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.shop-list div {
+  border-top: 1px solid #55564a;
+  padding-top: 12px;
+  color: #c9c3b5;
+}
+
+.shop-list b {
+  display: block;
+  font: 600 .75rem Oswald;
+  color: #d65b62;
+  margin-bottom: 5px;
+}
+
+#booking {
+  background: #ded8c8;
+  color: #191a16;
+}
+
+.booking-grid {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 55px;
+}
+
+#booking .section-title span { color: var(--red); }
+
+.booking-info p {
+  color: #625e53;
+  line-height: 1.7;
+}
+
+.booking-form {
+  background: #f0eadb;
+  border: 1px solid #aaa18f;
+  padding: 28px;
+  box-shadow: 8px 8px 0 #292a24;
+}
+
+.booking-form h3 {
+  font-size: 2rem;
+  margin: 0 0 10px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.field.full { grid-column: 1 / -1; }
+
+.field label {
+  font: 600 .75rem Oswald;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.field input, .field select, .field textarea {
+  padding: 13px;
+  border: 1px solid #aaa18f;
+  background: #fffdf5;
+  color: #191a16;
+  font: 1rem "Roboto Condensed";
+  border-radius: 0;
+  width: 100%;
+}
+
+.field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.booking-form .button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.form-note {
+  color: #777064;
+  font-size: .8rem;
+  line-height: 1.5;
+  margin: 12px 0 0;
+}
+
+.faq-list {
+  max-width: 800px;
+  margin: 35px auto 0;
+}
+
+.faq-item { border-top: 1px solid #55564a; }
+.faq-item:last-child { border-bottom: 1px solid #55564a; }
+
+.faq-question {
+  width: 100%;
+  padding: 22px 0;
+  background: none;
+  border: 0;
+  color: var(--cream);
+  text-align: left;
+  font: 600 1.1rem Oswald;
+  display: flex;
+  justify-content: space-between;
+}
+
+.faq-answer {
+  display: none;
+  color: #bdb7a9;
+  line-height: 1.7;
+  padding: 0 30px 20px 0;
+}
+
+.faq-item.open .faq-answer { display: block; }
+
+.closing {
+  background: var(--red);
+  padding: 55px 0;
+}
+
+.closing-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.closing h2 {
+  font: 700 clamp(2.5rem, 6vw, 4.5rem)/.95 Oswald;
+  margin: 0;
+}
+
+.closing .button {
+  background: #171813;
+  border-color: #55564a;
+}
+
+footer {
+  background: #10110e;
+  padding: 35px 0;
+  border-top: 1px solid #45453c;
+  color: #aaa595;
+}
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+footer strong {
+  font: 700 1.2rem Oswald;
+  color: var(--cream);
+}
+
+footer small {
+  display: block;
+  margin-top: 5px;
+  letter-spacing: .1em;
+}
+
+.toast {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translate(-50%, 150%);
+  z-index: 100;
+  background: var(--cream);
+  color: var(--black);
+  padding: 14px 20px;
+  border-left: 5px solid var(--red);
+  font-weight: 700;
+  transition: .25s;
+}
+
+.toast.show { transform: translate(-50%, 0); }
+
+@media(max-width: 800px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 76px;
+    left: 0;
+    right: 0;
+    background: #171813;
+    padding: 25px;
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 1px solid #55564a;
+  }
+
+  .nav-links.open { display: flex; }
+  .menu-button { display: block; }
+  nav > .button { display: none; }
+  .service-grid { grid-template-columns: 1fr 1fr; }
+  .shop, .booking-grid { grid-template-columns: 1fr; }
+  .hero-stamp { width: 110px; height: 110px; font-size: 1rem; }
+}
+
+@media(max-width: 520px) {
+  section { padding: 65px 0; }
+  .hero { min-height: 680px; }
+  .hero::before {
+    background:
+      linear-gradient(90deg, #10110fe8, #10110f80),
+      linear-gradient(0deg, #11120f, transparent 70%),
+      url("poster.jpg") 58% center / cover no-repeat;
+  }
+
+  h1 { font-size: 19vw; }
+  .hero-stamp { display: none; }
+  .service-grid { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .field.full { grid-column: auto; }
+  .closing-row { align-items: flex-start; flex-direction: column; }
+  .shop-list { grid-template-columns: 1fr 1fr; }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="noise"></div>
+
+<header>
+  <nav class="container">
+    <a href="#home" class="brand">
+      HOFFER'S HAIRCUTS
+      <small>THUNDERDOME LOCKER ROOM</small>
+    </a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#cuts">The Cuts</a>
+      <a href="#shop">The Locker Room</a>
+      <a href="#booking">Booking</a>
+      <a href="#faq">FAQ</a>
+    </div>
+
+    <a href="#booking" class="button">Get in the chair ↗</a>
+    <button class="menu-button" id="menuButton">☰</button>
+  </nav>
+</header>
+
+<main id="home">
+
+<section class="hero">
+  <div class="container hero-content">
+    <div class="kicker">No appointment? No problem.</div>
+
+    <h1>HOFFER'S<br><span>HAIRCUTS</span></h1>
+
+    <div class="hero-sub">ThunderDome Locker Room</div>
+
+    <p>
+      Walk in, grab a seat, and get cleaned up.
+      Old-school cuts in a locker room built for the
+      no-nonsense crowd.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#booking" class="button">Get in the chair ↗</a>
+      <a href="#cuts" class="button secondary">Check the lineup ↓</a>
+    </div>
+  </div>
+
+  <div class="hero-stamp">
+    WALK-INS
+    WELCOME
+    <small>WHEN THE CHAIR'S OPEN</small>
+  </div>
+</section>
+
+<div class="marquee">
+  <div>
+    <span>THUNDERDOME LOCKER ROOM ✦</span>
+    <span>NO APPOINTMENT? NO PROBLEM. ✦</span>
+    <span>NO CLEAN UP. NO WIPING. ✦</span>
+    <span>THUNDERDOME LOCKER ROOM ✦</span>
+    <span>NO APPOINTMENT? NO PROBLEM. ✦</span>
+    <span>NO CLEAN UP. NO WIPING. ✦</span>
+  </div>
+</div>
+
+<section id="cuts">
+  <div class="container">
+    <div class="eyebrow">01 / The lineup</div>
+    <h2 class="section-title">Pick your <span>cut.</span></h2>
+    <p class="section-intro">
+      Nothing fancy. Just a solid cut, a clean finish,
+      and back to your day. Choose a service to add it
+      to your booking request.
+    </p>
+
+    <div class="service-grid">
+      <article class="service">
+        <div class="service-number">01 / EVERYDAY</div>
+        <h3>The Regular</h3>
+        <p>A dependable haircut with clean lines and a proper finish.</p>
+        <div class="service-bottom">
+          <span class="price">$25</span>
+          <button class="add" data-service="The Regular">+</button>
+        </div>
+      </article>
+
+      <article class="service">
+        <div class="service-number">02 / SHARP WORK</div>
+        <h3>Fade & Taper</h3>
+        <p>Tight blends, clean fades, and a sharp outline.</p>
+        <div class="service-bottom">
+          <span class="price">$30</span>
+          <button class="add" data-service="Fade & Taper">+</button>
+        </div>
+      </article>
+
+      <article class="service">
+        <div class="service-number">03 / CLEANUP</div>
+        <h3>Beard & Lineup</h3>
+        <p>Get the edges back in formation with a beard trim and lineup.</p>
+        <div class="service-bottom">
+          <span class="price">$15</span>
+          <button class="add" data-service="Beard & Lineup">+</button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="shop">
+  <div class="container shop">
+    <div class="poster">
+      <img src="poster.jpg" alt="Hoffer's Haircuts ThunderDome poster">
+    </div>
+
+    <div class="shop-copy">
+      <div class="eyebrow">02 / Inside the Thunderdome</div>
+      <h2>Not a salon.<br><span>A locker room.</span></h2>
+
+      <p>
+        Metal lockers. Chain-link fence. Clippers ready.
+        Hoffer's Haircuts is a no-frills spot for people
+        who want a good cut without the fancy stuff.
+      </p>
+
+      <p>
+        Come in as you are, tell us what you need, and
+        leave looking sharp. The room's rough around the
+        edges. The cut isn't.
+      </p>
+
+      <div class="shop-list">
+        <div><b>THE VIBE</b>Old-school gym locker room</div>
+        <div><b>THE APPROACH</b>Friendly, direct, no fuss</div>
+        <div><b>THE PRIORITY</b>A cut done right</div>
+        <div><b>THE DEAL</b>Walk in when we're open</div>
+      </div>
+
+      <a href="#booking" class="button">Come get cleaned up ↗</a>
+    </div>
+  </div>
+</section>
+
+<section id="booking">
+  <div class="container booking-grid">
+    <div class="booking-info">
+      <div class="eyebrow">03 / Get in the chair</div>
+      <h2 class="section-title">Ready to get<br>cleaned <span>up?</span></h2>
+
+      <p>
+        Send a request for the day and service you want.
+        We'll confirm the details with you. Walk-ins are
+        welcome when available.
+      </p>
+
+      <p>
+        <strong>Location</strong><br>
+        Thunderdome Locker Room
+      </p>
+
+      <p>
+        <strong>Hours</strong><br>
+        Any Time After: 3:30
+      </p>
+
+      <p>
+        <strong>Call or text</strong><br>
+        (260)420-3897
+      </p>
+    </div>
+
+    <form class="booking-form" id="bookingForm">
+      <h3>Request a chair</h3>
+      <p>Choose your service and preferred time.</p>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="name">Your name</label>
+          <input id="name" name="name" required placeholder="Name">
+        </div>
+
+        <div class="field">
+          <label for="contact">Phone or email</label>
+          <input id="contact" name="contact" required placeholder="How to reach you">
+        </div>
+
+        <div class="field">
+          <label for="service">Service</label>
+          <select id="service" name="service" required>
+            <option value="">Choose a cut</option>
+            <option>The Regular — $25</option>
+            <option>Fade & Taper — $30</option>
+            <option>Beard & Lineup — $15</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="date">Preferred date</label>
+          <input type="date" id="date" name="date" required>
+        </div>
+
+        <div class="field">
+          <label for="time">Preferred time</label>
+          <select id="time" name="time">
+            <option>First available</option>
+            <option>9:00 AM</option>
+            <option>10:00 AM</option>
+            <option>11:00 AM</option>
+            <option>12:00 PM</option>
+            <option>1:00 PM</option>
+            <option>2:00 PM</option>
+            <option>3:00 PM</option>
+            <option>4:00 PM</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="visit">First visit?</label>
+          <select id="visit" name="visit">
+            <option>Returning customer</option>
+            <option>First time at Hoffer's</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label for="notes">Anything else?</label>
+          <textarea id="notes" name="notes" placeholder="Style, reference, or notes"></textarea>
+        </div>
+      </div>
+
+      <button class="button" type="submit">Create booking request ↗</button>
+
+      <p class="form-note">
+        This demo form downloads a request file.
+        It does not send an appointment or confirm a time.
+      </p>
+    </form>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <div class="eyebrow">04 / Locker room rules</div>
+    <h2 class="section-title">Good to <span>know.</span></h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question">
+          Do I need an appointment? <span>+</span>
+        </button>
+        <div class="faq-answer">
+          No appointment needed when the chair is open.
+          Walk-ins are welcome. You can also send a request
+          through the form.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          What if I don't know what cut I want? <span>+</span>
+        </button>
+        <div class="faq-answer">
+          Tell your barber what you like and what you want
+          to change. A reference photo helps, but it's not
+          required.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Can I bring my kid? <span>+</span>
+        </button>
+        <div class="faq-answer">
+          Add their age and any helpful notes to your
+          request so the shop can plan accordingly.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Are the prices final? <span>+</span>
+        </button>
+        <div class="faq-answer">
+          Prices are negotiable, tips are expected.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="container closing-row">
+    <h2>No clean up.<br>No wiping.<br>Just good cuts.</h2>
+    <a href="#booking" class="button">Get in the chair ↗</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container footer-row">
+    <div>
+      <strong>HOFFER'S HAIRCUTS</strong>
+      <small>THUNDERDOME LOCKER ROOM</small>
+    </div>
+    <span>© <span id="year"></span> Hoffer's Haircuts</span>
+    <a href="#home">Back to top ↑</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Service added to your request.</div>
+
+<script>
+const $ = selector => document.querySelector(selector);
+
+$("#year").textContent = new Date().getFullYear();
+
+// Mobile navigation
+$("#menuButton").addEventListener("click", () => {
+  $("#navLinks").classList.toggle("open");
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    $("#navLinks").classList.remove("open");
+  });
+});
+
+// Service selection
+let toastTimer;
+
+document.querySelectorAll("[data-service]").forEach(button => {
+  button.addEventListener("click", () => {
+    $("#service").value = button.dataset.service;
+    $("#booking").scrollIntoView({ behavior: "smooth" });
+
+    $("#toast").classList.add("show");
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+      $("#toast").classList.remove("show");
+    }, 2200);
+  });
+});
+
+// FAQ accordions
+document.querySelectorAll(".faq-question").forEach(button => {
+  button.addEventListener("click", () => {
+    const item = button.closest(".faq-item");
+    const isOpen = item.classList.toggle("open");
+
+    button.querySelector("span").textContent =
+      isOpen ? "−" : "+";
+  });
+});
+
+// Prevent selecting a date in the past
+const dateInput = $("#date");
+const today = new Date();
+
+dateInput.min = new Date(
+  today.getTime() - today.getTimezoneOffset() * 60000
+).toISOString().slice(0, 10);
+
+// Demo booking request download
+$("#bookingForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const form = new FormData(event.currentTarget);
+
+  const request = [
+    "HOFFER'S HAIRCUTS — BOOKING REQUEST",
+    "",
+    "Name: " + form.get("name"),
+    "Contact: " + form.get("contact"),
+    "Service: " + form.get("service"),
+    "Date: " + form.get("date"),
+    "Time: " + form.get("time"),
+    "Visit: " + form.get("visit"),
+    "Notes: " + (form.get("notes") || "None")
+  ].join("\n");
+
+  const file = new Blob([request], {
+    type: "text/plain"
+  });
+
+  const url = URL.createObjectURL(file);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "hoffers-booking-request.txt";
+  link.click();
+
+  URL.revokeObjectURL(url);
+
+  alert(
+    "Your request file has been created. " +
+    "Send it to the shop using the real contact details."
+  );
+});
+</script>
+
+</body>
+</html>
